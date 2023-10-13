@@ -1,0 +1,18 @@
+.statement__table {
+  .v-data-table__td {
+    &:first-child {
+      text-align: center;
+    }
+  }
+}
+//.v-data-table .v-table__wrapper > table {
+//  > thead > tr th {
+//    background: $blue-color !important;
+//  }
+//}
+
+.applications__table .v-data-table .v-table__wrapper > table > thead > tr th {
+  background: $blue-color !important;
+  border-right: 1px solid #357BD3 !important;
+  color: #fff !important;
+}

@@ -1,0 +1,6 @@
+@mixin text-ellipsis($lamp) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lamp;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

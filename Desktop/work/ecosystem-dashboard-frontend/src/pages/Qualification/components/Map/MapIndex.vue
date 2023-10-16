@@ -168,7 +168,13 @@ function markerClusterHandler() {
     marker.on('click', function () {
       if (!props.form?.tin) {
         isEmitOrganization.value = true;
-        emit('selectOrganization', e)
+        emit('selectOrganization', e);
+
+        // const query = {
+        //   region_id: e.
+        // }
+
+        getMapCountOrganizations({tin: e.tin});
 
         setTimeout(()=> {
           isEmitOrganization.value = false;

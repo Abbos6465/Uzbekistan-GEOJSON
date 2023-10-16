@@ -241,7 +241,7 @@ function selectOrganizationHandler(organization){
   applyForm.value.company_tin = organization.tin;
 
   setTimeout(()=> {
-    isSelectOrganization.value = true;
+    isSelectOrganization.value = false;
   },1000)
 }
 

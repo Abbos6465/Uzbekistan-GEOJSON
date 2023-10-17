@@ -289,9 +289,9 @@ const QualificationApi = {
     },
 
     async mapCountOrganizations(params = {}): Promise<mapCountOrganizationsType>{
-        console.log(params);
-        return axios.get(`https://sertifikat.mehnat.uz/api/api/profession/get-map-count-organizations`, {params})
-            .then(({data}) => data.data)
+        return await axiosInstance
+            .get(`api/v1/cabinet/get-map-count-organizations`, {params})
+            .then(({data}) => data.result.data)
             .catch(err=> err);
     },
 

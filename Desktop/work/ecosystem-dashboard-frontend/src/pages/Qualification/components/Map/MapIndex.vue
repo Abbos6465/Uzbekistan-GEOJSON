@@ -166,13 +166,10 @@ function markerClusterHandler() {
     });
 
     marker.on('click', function () {
+      console.log(props.form)
       if (!props.form?.tin) {
         isEmitOrganization.value = true;
         emit('selectOrganization', e);
-
-        // const query = {
-        //   region_id: e.
-        // }
 
         getMapCountOrganizations({tin: e.tin});
 

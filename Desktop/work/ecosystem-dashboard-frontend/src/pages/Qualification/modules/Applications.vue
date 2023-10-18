@@ -78,6 +78,9 @@ onMounted(async () => {
             <span v-if="item.selectable.status=='issued'">
               {{ t('statuses.4') }}
             </span>
+            <span v-if="item.selectable.status=='queue'">
+              {{`${item.selectable.queue_number} - ${t('statuses.5')}`}}
+            </span>
           </v-chip>
         </template>
         <template #edu_name="item">

@@ -80,7 +80,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="video-courses pa-5 bg-white pa-5 rounded-lg h-100 w-100">
+  <div class="video-courses pa-5 bg-white pa-5 rounded-lg w-100">
     <div class="d-flex mb-5 align-center justify-space-between">
       <div class="title block-title--20">
         {{ $t('qualification.VideoCourses') }}
@@ -240,6 +240,7 @@ onMounted(() => {
 
 
     .swiper {
+      padding-bottom: 5px;
 
 
       .swiper-wrapper {

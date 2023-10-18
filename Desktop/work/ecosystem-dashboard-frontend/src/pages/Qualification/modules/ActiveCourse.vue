@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 
-import {computed, onMounted, ref} from "vue";
+import {computed} from "vue";
 import Rate from "@/components/UI/Rate.vue";
 import {useI18n} from "vue-i18n";
 import {useQualificationStore} from "@/pages/Qualification/store";
@@ -19,7 +19,7 @@ const direction = computed(() => {
 </script>
 
 <template>
-  <div class="bg-white pa-5 rounded-lg h-100 my-course">
+  <div class="bg-white pa-5 rounded-lg my-course">
     <div class="">
       <div class="courses__rate__title rounded-xl pb-3">
         {{ t('qualification.YourCurrentRate') }}
@@ -40,7 +40,7 @@ const direction = computed(() => {
           <div class="box__text">
             {{ t('qualification.NumberOfHours') }}:
             <span class="box__text-content">
-                  {{ direction.hourly }}
+                  {{ direction.hourly ?? 0 }}
                 </span>
           </div>
         </div>
@@ -49,7 +49,7 @@ const direction = computed(() => {
           <div class="box__text">
             {{ t('qualification.TrainingPeriod') }}:
             <span class="box__text-content">
-                  {{ direction.weekly }} {{t('qualification.week')}}
+                  {{ direction.weekly }} {{ t('qualification.week') }}
                 </span>
           </div>
         </div>
@@ -64,13 +64,16 @@ const direction = computed(() => {
         </div>
       </div>
       <div class="about mt-5">
-        <div class="about-title">
-         {{t('qualification.About-the-course')}}
+        <div
+            class="about-title"
+            v-if="direction.info"
+        >
+          {{ t('qualification.About-the-course') }}
         </div>
         <div class="hasScroll--y">
           <div class="about-content mt-3">
             {{
-              direction.info ?? 'WEB дастурлаш курсида сиз асосий дастурлаш тилларини ўрганасиз, замонавий веб-сайтларни яратишни ўрганасиз ва муваффақиятли веб-ишлаб чиқувчилар фойдаланадиган воситалар билан танишасиз. Фақат 80 та дарсда (10 ой) сиз тўлақонли касб учун барча керакли кўникмаларни ўзлаштирасиз. Курс янги бошланувчилар учун мўлжалланган ва тренинг нолдан олиб борилади. Барча маълумотлар аниқ ва тушунарли шаклда тақдим етилади ва талабалар ўзларини қулай ҳис қилишадиWEB дастурлаш курсида сиз асосий дастурлаш тилларини ўрганасиз, замонавий веб-'
+              direction.info
             }}
           </div>
         </div>
@@ -78,7 +81,7 @@ const direction = computed(() => {
     </template>
     <template v-else>
       <div class="w-100 mt-5 pa-4 d-flex align-center justify-center border rounded-lg">
-        {{t('qualification.There-is-no-information')}}
+        {{ t('qualification.There-is-no-information') }}
       </div>
     </template>
   </div>

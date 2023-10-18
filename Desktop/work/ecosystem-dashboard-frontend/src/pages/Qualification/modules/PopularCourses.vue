@@ -32,7 +32,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="popular-courses pa-5 bg-white pa-5 rounded-lg w-100 h-100">
+  <div class="popular-courses pa-5 bg-white pa-5 rounded-lg w-100">
     <div class="popular-courses_header d-flex align-center justify-space-between mb-5">
       <div class="title block-title--20">
         {{ $t('qualification.PopularCourses') }}

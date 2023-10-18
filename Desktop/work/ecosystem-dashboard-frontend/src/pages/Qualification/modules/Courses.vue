@@ -234,15 +234,15 @@ function applyHandler() {
 
 const isSelectOrganization = ref(false);
 
-function selectOrganizationHandler(organization){
+function selectOrganizationHandler(organization) {
   isSelectOrganization.value = true;
   applyForm.value.structure_parent_id = organization.region_id;
   applyForm.value.parent_structure_soato = organization.city_soato;
   applyForm.value.company_tin = organization.tin;
 
-  setTimeout(()=> {
+  setTimeout(() => {
     isSelectOrganization.value = false;
-  },1000)
+  }, 1000)
 }
 
 function storeAppealCourseHandler() {
@@ -300,9 +300,9 @@ function applyDialogCloseHandler() {
   }, 500)
 }
 
-function updateCoorHandler(data = {}){
+function updateCoorHandler(data = {}) {
   if (data && data.address_latitude && data.address_longitude) {
-   mapForm.value.coor = [Number(data.address_latitude), Number(data.address_longitude)]
+    mapForm.value.coor = [Number(data.address_latitude), Number(data.address_longitude)]
   }
 }
 
@@ -319,7 +319,7 @@ let oldValue = Object.assign({}, applyForm.value);
 watch(() => applyForm.value, (newValue) => {
   if (newValue.structure_parent_id != oldValue.structure_parent_id) {
 
-    if(!isSelectOrganization.value) newValue.parent_structure_soato = null;
+    if (!isSelectOrganization.value) newValue.parent_structure_soato = null;
 
     if (newValue.structure_parent_id) {
       getCities();
@@ -332,7 +332,7 @@ watch(() => applyForm.value, (newValue) => {
     }
   }
   if (newValue.parent_structure_soato != oldValue.parent_structure_soato) {
-    if(!isSelectOrganization.value) newValue.company_tin = null;
+    if (!isSelectOrganization.value) newValue.company_tin = null;
     if (newValue.parent_structure_soato) {
       getOrganizations();
       mapForm.value.city_soato = newValue.parent_structure_soato;
@@ -345,7 +345,7 @@ watch(() => applyForm.value, (newValue) => {
   }
 
   if (newValue.company_tin != oldValue.company_tin) {
-    if(!isSelectOrganization.value) newValue.direction_id = null;
+    if (!isSelectOrganization.value) newValue.direction_id = null;
     if (newValue.company_tin) {
       getDirections()
       mapForm.value.tin = newValue.company_tin;
@@ -584,11 +584,17 @@ watch(() => isApplyDialogOpen.value, (newValue) => {
         {{ t('qualification.AdditionalInformation') }}
 
       </div>
-      <v-row class="mt-6">
-        <v-col md="6">
+      <v-row class="mt-6 course-dialog__row">
+        <v-col
+            v-if="organizationData.founder_name"
+            md="6"
+        >
           <div class="course-dialog__col">
             <div class="course-dialog__col-icon">
-              <svg data-src="/img/icons/user_2.svg" class="icon"></svg>
+              <svg
+                  data-src="/img/icons/user_2.svg"
+                  class="icon"
+              ></svg>
             </div>
             <div class="course-dialog__col-contents">
               <div class="title">
@@ -600,7 +606,10 @@ watch(() => isApplyDialogOpen.value, (newValue) => {
             </div>
           </div>
         </v-col>
-        <v-col md="6">
+        <v-col
+            v-if="organizationData.oked"
+            md="6"
+        >
           <div class="course-dialog__col">
             <div class="course-dialog__col-icon">
               <svg data-src="/img/icons/open-book.svg"></svg>
@@ -615,10 +624,17 @@ watch(() => isApplyDialogOpen.value, (newValue) => {
             </div>
           </div>
         </v-col>
-        <v-col md="6">
+        <v-col
+            md="6"
+            v-if="organizationData.address_us"
+        >
           <div class="course-dialog__col">
             <div class="course-dialog__col-icon">
-              <svg data-src="/img/icons/address.svg" class="icon address-icon"></svg>
+              <svg
+                  data-src="/img/icons/address.svg"
+                  class="icon address-icon"
+              >
+              </svg>
             </div>
             <div class="course-dialog__col-contents">
               <div class="title">
@@ -630,10 +646,16 @@ watch(() => isApplyDialogOpen.value, (newValue) => {
             </div>
           </div>
         </v-col>
-        <v-col md="6">
+        <v-col
+            v-if="organizationData.opf"
+            md="6"
+        >
           <div class="course-dialog__col">
             <div class="course-dialog__col-icon">
-              <svg data-src="/img/icons/organizational.svg" class="icon organizational-icon"></svg>
+              <svg
+                  data-src="/img/icons/organizational.svg"
+                  class="icon organizational-icon"
+              ></svg>
             </div>
             <div class="course-dialog__col-contents">
               <div class="title">
@@ -644,6 +666,18 @@ watch(() => isApplyDialogOpen.value, (newValue) => {
               </div>
             </div>
           </div>
+        </v-col>
+        <v-col
+            md="12"
+            class="text-end"
+        >
+          <a
+              v-if="organizationData.paid_course_student_file"
+              :href="`${organizationData.paid_course_student_base_url}${organizationData.paid_course_student_file}`"
+              class="px-5 py-4 rounded-lg v-btn v-btn--primary text-white"
+          >
+            Sertifikatni yuklash
+          </a>
         </v-col>
       </v-row>
     </div>
@@ -694,6 +728,7 @@ watch(() => isApplyDialogOpen.value, (newValue) => {
       </v-col>
       <v-col md="6">
         <AppSelect
+            :disabled="applyForm.structure_parent_id ? false : true"
             :label="t('qualification.city')"
             :placeholder="t('qualification.Choose')"
             :items="cities"
@@ -715,6 +750,7 @@ watch(() => isApplyDialogOpen.value, (newValue) => {
       </v-col>
       <v-col md="6">
         <AppSelect
+            :disabled="applyForm.parent_structure_soato ? false : true"
             :items="organizations"
             item-value="tin"
             item-title="name"
@@ -736,6 +772,7 @@ watch(() => isApplyDialogOpen.value, (newValue) => {
       </v-col>
       <v-col md="6">
         <AppSelect
+            :disabled="applyForm.company_tin ? false : true"
             :items="directions"
             item-value="direction_id"
             :item-title="locale == 'uz' ? 'title_uz' : 'title_ru'"
@@ -761,7 +798,7 @@ watch(() => isApplyDialogOpen.value, (newValue) => {
             item-value="value"
             :placeholder="t('qualification.selectPeriod')"
             :label="t('qualification.period')"
-            :disabled="direction_weekly ? true : false"
+            :disabled="direction_weekly || !applyForm.direction_id ? true : false"
         />
       </v-col>
     </v-row>
@@ -853,6 +890,10 @@ watch(() => isApplyDialogOpen.value, (newValue) => {
       border-right: 1px solid #C0C0C0;
     }
   }
+}
+
+.course-dialog__row{
+  min-height: 100px;
 }
 
 .course-dialog_footer {

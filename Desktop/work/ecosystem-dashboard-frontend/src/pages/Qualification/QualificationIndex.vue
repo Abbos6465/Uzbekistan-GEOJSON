@@ -248,7 +248,7 @@ onMounted(() => {
 
     .box {
       width: calc(100% / 3 - 7px);
-      min-width: 210px;
+      min-width: 160px;
       border-radius: 10px;
       border: 0.5px solid #E2E2E2;
       background-color: #FFF !important;
@@ -276,6 +276,7 @@ onMounted(() => {
   }
 
   .about {
+    min-height: 50px;
 
     &-title {
       color: #373B55;

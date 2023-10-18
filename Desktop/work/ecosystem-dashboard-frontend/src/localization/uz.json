@@ -208,7 +208,8 @@
     "1": "Ko'rib chiqilmoqda",
     "2": "Tasdiqlangan",
     "3": "Rad etilgan",
-    "4": "Tasdiqlangan"
+    "4": "Tasdiqlangan",
+    "5": "navbat"
   },
   "gender": {
     "male": "Erkak",
@@ -500,7 +501,7 @@
     "Excluded": "Chiqarildi",
     "YourCurrentRate": "Sizning joriy tarifingiz",
     "NumberOfHours": "Soatlar soni",
-    "TrainedByStudents": "Talabalar tomonidan o'qitildi",
+    "TrainedByStudents": "Talabalar soni",
     "VideoCourses": "Videokurslar",
     "PopularCourses": "Ommaviy kurslar",
     "Welcome-to-the-personal-account-of-the-professional-training-website": "Kasb-hunar ta'limi veb-saytining shaxsiy kabinetiga xush kelibsiz",
